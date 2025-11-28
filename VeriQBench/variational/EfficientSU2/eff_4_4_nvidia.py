@@ -1,0 +1,27 @@
+import cudaq
+cudaq.set_target('nvidia')
+@cudaq.kernel
+def circuit():
+    q = cudaq.qvector(4)
+    rx(3.1416721816531865, q[0])
+    y(q[0])
+    rx(3.1416066134759264, q[1])
+    y(q[1])
+    x.ctrl([q[0]], q[1])
+    rx(6.283119509906083, q[0])
+    y(q[0])
+    rx(2.0676365447953986e-05, q[2])
+    y(q[2])
+    x.ctrl([q[1]], q[2])
+    rx(2.541466912542851e-06, q[1])
+    y(q[1])
+    rx(1.6128754942261483, q[3])
+    y(q[3])
+    x.ctrl([q[2]], q[3])
+    rx(3.1416191595512597, q[2])
+    y(q[2])
+    rx(1.612837856093889, q[3])
+    y(q[3])
+
+counts = cudaq.sample(circuit, shots_count=1024)
+print(counts)

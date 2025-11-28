@@ -1,0 +1,26 @@
+import cudaq
+cudaq.set_target('tensornet')
+@cudaq.kernel
+def circuit():
+    q = cudaq.qvector(4)
+    ry(2.2550838042508814, q[0])
+    ry(-0.00024211540731557916, q[1])
+    ry(1.6710237090859774, q[2])
+    ry(-2.4683764674701445, q[3])
+    x.ctrl([q[2]], q[3])
+    x.ctrl([q[1]], q[2])
+    x.ctrl([q[0]], q[1])
+    ry(0.05242096891171133, q[0])
+    ry(0.06725228443923906, q[1])
+    ry(0.15986425080312602, q[2])
+    ry(-0.12427572772829466, q[3])
+    x.ctrl([q[2]], q[3])
+    x.ctrl([q[1]], q[2])
+    x.ctrl([q[0]], q[1])
+    ry(-2.253454955203389, q[0])
+    ry(-3.099043494910433, q[1])
+    ry(1.5706098165320757, q[2])
+    ry(2.462214751559368, q[3])
+
+counts = cudaq.sample(circuit, shots_count=1024)
+print(counts)
